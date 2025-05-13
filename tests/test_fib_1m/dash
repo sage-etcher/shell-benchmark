@@ -1,0 +1,13 @@
+#!/usr/bin/env dash
+
+n=1000000
+a=0
+b=1
+
+for _ in $(seq $n); do
+	oh=$(( $a + $b ))
+	a=$b
+	b=$oh
+done
+
+echo "$b"

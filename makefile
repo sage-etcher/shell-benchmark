@@ -5,10 +5,12 @@ root_dir = .
 .include "${root_dir}/config.mk"
 
 # tests
-available_tests ?= test_fib_1m
+available_tests ?= test_branching test_echo test_fib_1m test_for_each \
+				   test_function_calls test_goto test_math test_pipe \
+				   test_process_creation test_variable_assign
 
 # shells
-all_shells    = sh bash zsh ksh csh tcsh fish
+all_shells    = sh bash zsh ksh csh tcsh fish dash
 check_shells ?= auto
 
 # generate validate_shells 
@@ -58,9 +60,13 @@ ${available_tests}:
 	@echo '-------------------------------------------------------------------------------' >&2
 	@echo 'test $@:' >&2
 .for shell in ${available_shells}
+	@if [ -x ${root_dir}/tests/$@/${shell} ]; then
 	@echo '----' >&2
 	@echo '${shell}' >&2
 	@bash -c 'time { ${root_dir}/tests/$@/${shell} 2>&1 >/dev/null ; }'
+	else
+	@echo '${shell}: test unavailable, skipping' >&2
+	fi
 .endfor
 
 # end of file

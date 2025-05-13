@@ -11,7 +11,9 @@ tests and shells to choose from!
 
 ## Usage
 
-Run from an `sh` compatible shell.
+Run from an `bash` compatible shell.
+Multithreaded make jobs `-jn` are known to break output. If issues occur 
+please use `-j1`.
 
 `bmake test-all` to run all tests (default behavior)  
 `bmake list-tests` to list available tests  
